@@ -22,11 +22,16 @@ if exist "%BUILD_DIR%" rd /s /q "%BUILD_DIR%"
 mkdir "%BUILD_DIR%"
 
 echo === Copying web resources ===
-:: Copy all files and directories from test to build
+:: Create excludelist.txt BEFORE copy to ensure exclusions are applied
+(
+    echo deploy.bat
+    echo %WEBAPP_NAME%.war
+    echo WEB-INF\lib\jakarta.servlet-api*.jar
+    echo WEB-INF\lib\jakarta.jakartaee-api*.jar
+    echo WEB-INF\lib\javax.servlet-api*.jar
+)>excludelist.txt
+:: Copy all files and directories from test to build (including JSP, CSS, etc.)
 xcopy /E /I /Y "%PROJECT_ROOT%\*.*" "%BUILD_DIR%" /EXCLUDE:excludelist.txt
-:: Create excludelist.txt to exclude deploy.bat and existing WAR file
-echo deploy.bat>excludelist.txt
-echo %WEBAPP_NAME%.war>>excludelist.txt
 xcopy /E /I /Y "%PROJECT_ROOT%\WEB-INF" "%BUILD_DIR%\WEB-INF"
 
 echo === Creating WAR file ===
