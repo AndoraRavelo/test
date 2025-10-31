@@ -17,7 +17,7 @@
     <!-- FrontServlet -->
     <servlet>
         <servlet-name>FrontServlet</servlet-name>
-        <servlet-class>com.example.FrontServlet</servlet-class>
+        <servlet-class>com.example.servlet.FrontServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
