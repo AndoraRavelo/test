@@ -17,14 +17,37 @@
     <!-- FrontServlet -->
     <servlet>
         <servlet-name>FrontServlet</servlet-name>
-        <servlet-class>com.example.FrontServlet</servlet-class>
+        <servlet-class>com.example.servlet.FrontServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
         <servlet-name>FrontServlet</servlet-name>
         <url-pattern>/</url-pattern>
         <url-pattern></url-pattern>
+        <!-- Mapping explicite pour les forwards du filtre -->
+        <url-pattern>/FrontServlet</url-pattern>
     </servlet-mapping>
+
+    <!-- UrlTestServlet pour tester les mappings -->
+    <servlet>
+        <servlet-name>UrlTestServlet</servlet-name>
+        <servlet-class>com.example.utilitaire.UrlTestServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UrlTestServlet</servlet-name>
+        <url-pattern>/testUrl</url-pattern>
+        <url-pattern>/testUrl/*</url-pattern>
+    </servlet-mapping>
+
+    <!-- Filtre de ressources: envoie vers /FrontServlet si ressource statique introuvable -->
+    <filter>
+        <filter-name>ResourceFilter</filter-name>
+        <filter-class>com.example.utilitaire.ResourceFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>ResourceFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
